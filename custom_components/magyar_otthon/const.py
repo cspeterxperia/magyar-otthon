@@ -2,6 +2,9 @@
 
 DOMAIN = "magyar_otthon"
 NAME = "Magyar Otthon"
-VERSION = "0.2.0"
+VERSION = "0.3.1"
 
-PLATFORMS = []
+PLATFORMS = [
+    "sensor",
+    "calendar",
+]

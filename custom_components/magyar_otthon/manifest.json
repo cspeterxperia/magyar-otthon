@@ -1,7 +1,7 @@
 {
   "domain": "magyar_otthon",
   "name": "Magyar Otthon",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "documentation": "https://github.com/cspeterxperia/magyar-otthon",
   "issue_tracker": "https://github.com/cspeterxperia/magyar-otthon/issues",
   "codeowners": [
