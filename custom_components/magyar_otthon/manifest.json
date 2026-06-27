@@ -1,0 +1,18 @@
+{
+  "domain": "magyar_otthon",
+  "name": "Magyar Otthon",
+  "version": "0.1.0",
+  "config_flow": true,
+  "documentation": "https://github.com/cspeterxperia/magyar-otthon",
+  "issue_tracker": "https://github.com/cspeterxperia/magyar-otthon/issues",
+  "codeowners": [
+    "@cspeterxperia"
+  ],
+  "integration_type": "service",
+  "iot_class": "calculated",
+  "requirements": [],
+  "dependencies": [],
+  "loggers": [
+    "custom_components.magyar_otthon"
+  ]
+}

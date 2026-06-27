@@ -1,0 +1,13 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Magyar Otthon",
+        "description": "Magyar Otthon integráció telepítése."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "A Magyar Otthon már telepítve van."
+    }
+  }
+}
