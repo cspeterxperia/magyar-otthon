@@ -1,24 +1,13 @@
-"""Magyar munkaszüneti napok."""
+"""Provider for Hungarian public holidays."""
 
 from __future__ import annotations
 
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 
 from homeassistant.components.calendar import CalendarEvent
 
 from ..calendar_provider import CalendarDataProvider
-
-
-FIXED_HOLIDAYS = {
-    (1, 1): "Újév",
-    (3, 15): "1848-as forradalom és szabadságharc",
-    (5, 1): "Munka ünnepe",
-    (8, 20): "Szent István ünnepe",
-    (10, 23): "1956-os forradalom",
-    (11, 1): "Mindenszentek",
-    (12, 25): "Karácsony első napja",
-    (12, 26): "Karácsony második napja",
-}
+from .holiday_engine import HolidayEngine
 
 
 class HolidaysCalendarProvider(CalendarDataProvider):
@@ -26,39 +15,28 @@ class HolidaysCalendarProvider(CalendarDataProvider):
 
     name = "holidays"
 
+    def __init__(self, engine: HolidayEngine | None = None) -> None:
+        """Initialize the provider with a holiday engine."""
+
+        self._engine = engine or HolidayEngine()
+
     async def async_get_events(
         self,
         start_date: datetime,
         end_date: datetime,
     ) -> list[CalendarEvent]:
-        """Return fixed public holidays within the requested range."""
+        """Return Hungarian public holidays within the requested range."""
 
-        events: list[CalendarEvent] = []
-        current = start_date.date()
-        while current <= end_date.date():
-            holiday_name = FIXED_HOLIDAYS.get((current.month, current.day))
-            if holiday_name is not None:
-                events.append(
-                    CalendarEvent(
-                        summary=holiday_name,
-                        start=datetime.combine(current, datetime.min.time()),
-                        end=datetime.combine(current + timedelta(days=1), datetime.min.time()),
-                        description="Magyar közszabadság nap",
-                        location="Magyarország",
-                    )
-                )
-            current += timedelta(days=1)
-
-        return events
+        return self._engine.get_holidays(start_date, end_date)
 
 
 def get_fixed_holiday(day: date) -> str | None:
-    """Visszaadja a fix ünnep nevét."""
+    """Backward-compatible helper for fixed holiday lookup."""
 
-    return FIXED_HOLIDAYS.get((day.month, day.day))
+    return HolidayEngine().get_holiday_name(day)
 
 
 def is_fixed_holiday(day: date) -> bool:
-    """Igaz, ha a nap fix magyar munkaszüneti nap."""
+    """Backward-compatible helper for fixed holiday detection."""
 
-    return (day.month, day.day) in FIXED_HOLIDAYS
+    return get_fixed_holiday(day) is not None

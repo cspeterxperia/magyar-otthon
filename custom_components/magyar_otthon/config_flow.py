@@ -7,12 +7,19 @@ import voluptuous as vol
 from homeassistant import config_entries
 
 from .const import DOMAIN
+from .options_flow import MagyarOtthonOptionsFlowHandler
 
 
 class MagyarOtthonConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Magyar Otthon."""
 
     VERSION = 1
+
+    @staticmethod
+    def async_get_options_flow(config_entry):
+        """Create the options flow for this integration."""
+
+        return MagyarOtthonOptionsFlowHandler(config_entry)
 
     async def async_step_user(self, user_input=None):
         """Handle the initial step."""

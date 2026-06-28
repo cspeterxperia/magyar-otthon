@@ -7,6 +7,7 @@ from homeassistant.core import HomeAssistant
 
 from .const import DOMAIN, PLATFORMS
 from .coordinator import MagyarOtthonCoordinator
+from .logger import LOGGER
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
@@ -22,6 +23,8 @@ async def async_setup_entry(
     """Config entry betöltése."""
 
     coordinator = MagyarOtthonCoordinator(hass)
+    LOGGER.debug("Setting up config entry %s", entry.entry_id)
+    LOGGER.debug("Forwarding platforms: %s", PLATFORMS)
 
     await coordinator.async_config_entry_first_refresh()
 
