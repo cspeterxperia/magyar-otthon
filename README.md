@@ -10,6 +10,6 @@ Magyar munkaszüneti napok, elcsúsztatott munkanapok, ünnepek, névnapok.
 Sok változó lehet túl sok is.
 Lesz még fejlesztés finomítás de a lényeg maradni fog.
 Be lesz téve hogy más országok névnapjai is megjelenjenek, illetve választható legyen, valamint jelezze ha adott/beállított névnap van.
-Leghasznosabb pl. telefonra üzenet reggel, este: Ma viszik a szelektívet! vagy: Holnap kukanap!, ezeket persze automatizálni kell de  aváltozó itt van hozzá.
+Leghasznosabb pl. telefonra üzenet reggel, este: Ma viszik a szelektívet! vagy: Holnap kukanap!, ezeket persze automatizálni kell de  a változó itt van hozzá.
 
 próbáld ki, ártani nem árt semmit
