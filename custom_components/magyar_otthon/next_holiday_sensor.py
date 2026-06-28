@@ -35,7 +35,7 @@ class NextHolidaySensor(SensorEntity):
     """Expose the next Hungarian holiday as a sensor."""
 
     _attr_has_entity_name = True
-    _attr_name = "Next Hungarian Holiday"
+    _attr_name = "Következő magyar ünnep"
 
     def __init__(self, provider: HolidaysCalendarProvider, entry_id: str) -> None:
         """Initialize the sensor."""
@@ -56,11 +56,11 @@ class NextHolidaySensor(SensorEntity):
 
         days_remaining = (holiday.start - now).days
         return {
-            "holiday_name": holiday.summary,
-            "date": holiday.start.isoformat(),
-            "days_remaining": days_remaining,
-            "is_today": days_remaining == 0,
-            "is_tomorrow": days_remaining == 1,
+            "ünnepnap_neve": holiday.summary,
+            "dátum": holiday.start.isoformat(),
+            "hátralévő_napok": days_remaining,
+            "ma_van": days_remaining == 0,
+            "holnap_van": days_remaining == 1,
         }
 
     @property

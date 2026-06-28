@@ -9,5 +9,65 @@
     "abort": {
       "single_instance_allowed": "A Magyar Otthon már telepítve van."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Beállítások",
+        "menu_options": {
+          "altalanos": "Általános beállítások",
+          "hulladek_valaszto": "Hulladéknaptár beállítások"
+        }
+      },
+      "altalanos": {
+        "title": "Általános beállítások",
+        "data": {
+          "holidays_enabled": "Ünnepnap modul engedélyezése",
+          "school_enabled": "Iskola modul engedélyezése",
+          "garbage_enabled": "Hulladék modul engedélyezése",
+          "namedays_enabled": "Névnap modul engedélyezése",
+          "custom_calendar_enabled": "Egyéni naptár modul engedélyezése",
+          "country": "Ország",
+          "county": "Vármegye",
+          "municipality": "Település",
+          "waste_provider": "Szolgáltató neve",
+          "school_type": "Intézménytípus",
+          "calendar_color": "Naptár színe",
+          "refresh_interval": "Frissítési időköz (másodperc)",
+          "enable_debug_logging": "Részletes naplózás"
+        }
+      },
+      "hulladek_valaszto": {
+        "title": "Hulladéktípus kiválasztása",
+        "data": {
+          "hulladek_tipus": "Szerkesztendő hulladéktípus"
+        }
+      },
+      "hulladek_alap": {
+        "title": "Hulladéktípus alapbeállításai",
+        "data": {
+          "engedelyezve": "Engedélyezve",
+          "uresites_tipus": "Ürítési ütemezés",
+          "aktiv_idoszak": "Aktív időszak"
+        }
+      },
+      "hulladek_reszletek": {
+        "title": "Hulladéktípus részletes beállításai",
+        "data": {
+          "het_napja": "Hét napja",
+          "elso_gyujtes_datum": "Első gyűjtési dátum (ÉÉÉÉ-HH-NN)",
+          "havi_pozicio": "Havi pozíció",
+          "hozzaadando_datumok": "Hozzáadandó dátumok (vesszővel, ÉÉÉÉ-HH-NN)",
+          "torlendo_datumok": "Törlendő dátumok (vesszővel, ÉÉÉÉ-HH-NN)",
+          "kezdo_honap": "Kezdő hónap",
+          "zaro_honap": "Záró hónap",
+          "kezdo_datum": "Kezdő dátum (ÉÉÉÉ-HH-NN)",
+          "zaro_datum": "Záró dátum (ÉÉÉÉ-HH-NN)"
+        }
+      }
+    },
+    "error": {
+      "ervenytelen_adat": "Érvénytelen vagy hiányos adat."
+    }
   }
 }
