@@ -35,7 +35,7 @@ class NextHolidaySensor(SensorEntity):
     """Expose the next Hungarian holiday as a sensor."""
 
     _attr_has_entity_name = True
-    _attr_name = "Következő magyar ünnep"
+    _attr_name = "Következő ünnepnap"
 
     def __init__(self, provider: HolidaysCalendarProvider, entry_id: str) -> None:
         """Initialize the sensor."""

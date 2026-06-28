@@ -57,7 +57,7 @@ class DaysUntilNextHolidaySensor(SensorEntity):
     """Expose the number of days until the next holiday."""
 
     _attr_has_entity_name = True
-    _attr_name = "Következő ünnep napjai"
+    _attr_name = "Hátralévő napok a következő ünnepig"
 
     def __init__(self, provider: HolidaysCalendarProvider, entry_id: str) -> None:
         self._provider = provider
