@@ -68,11 +68,11 @@ class HulladekAlapBinarySensor(BinarySensorEntity):
 
 
 class HulladekMaBinarySensor(HulladekAlapBinarySensor):
-    """Jelzi, hogy ma van-e ürítés."""
+    """Jelzi, hogy ma van-e ürítés/elszállítás."""
 
     def __init__(self, entry: ConfigEntry, konfig: HulladekKonfiguracio) -> None:
         super().__init__(entry, konfig)
-        self._attr_name = "Ürítés ma"
+        self._attr_name = "Elszállítás ma" if konfig.tipus_azonosito == "fenyofa" else "Ürítés ma"
         self._attr_unique_id = f"magyar_otthon_{entry.entry_id}_{konfig.tipus_azonosito}_ma"
 
     @property
@@ -83,11 +83,11 @@ class HulladekMaBinarySensor(HulladekAlapBinarySensor):
 
 
 class HulladekHolnapBinarySensor(HulladekAlapBinarySensor):
-    """Jelzi, hogy holnap van-e ürítés."""
+    """Jelzi, hogy holnap van-e ürítés/elszállítás."""
 
     def __init__(self, entry: ConfigEntry, konfig: HulladekKonfiguracio) -> None:
         super().__init__(entry, konfig)
-        self._attr_name = "Ürítés holnap"
+        self._attr_name = "Elszállítás holnap" if konfig.tipus_azonosito == "fenyofa" else "Ürítés holnap"
         self._attr_unique_id = f"magyar_otthon_{entry.entry_id}_{konfig.tipus_azonosito}_holnap"
 
     @property

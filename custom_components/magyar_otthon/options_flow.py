@@ -123,6 +123,8 @@ class MagyarOtthonOptionsFlowHandler(config_entries.OptionsFlow):
                 return self.async_create_entry(title="", data=self._options)
 
             self._aktiv_tipus = kivalasztott
+            if kivalasztott == "fenyofa":
+                return await self.async_step_hulladek_fenyofa()
             return await self.async_step_hulladek_alap()
 
         tipus_opciok = [
@@ -142,6 +144,48 @@ class MagyarOtthonOptionsFlowHandler(config_entries.OptionsFlow):
                     )
                 }
             ),
+        )
+
+    async def async_step_hulladek_fenyofa(self, user_input=None):
+        """Fenyőfa elszállítás – csak 2 dátum megadása."""
+
+        if self._aktiv_tipus is None:
+            return await self.async_step_hulladek_valaszto()
+
+        aktualis = self._garbage_config[self._aktiv_tipus]
+        kezidatumok = aktualis.get("kezidatumok", [])
+        datum1 = str(kezidatumok[0]) if len(kezidatumok) > 0 else ""
+        datum2 = str(kezidatumok[1]) if len(kezidatumok) > 1 else ""
+        hibak: dict[str, str] = {}
+
+        if user_input is not None:
+            datumok: list[str] = []
+            for key in ("datum1", "datum2"):
+                val = str(user_input.get(key, "")).strip()
+                if val:
+                    try:
+                        date.fromisoformat(val)
+                        datumok.append(val)
+                    except ValueError:
+                        hibak["base"] = "ervenytelen_adat"
+            if not hibak:
+                aktualis["engedelyezve"] = bool(user_input.get("engedelyezve", False))
+                aktualis["uresites_tipus"] = "kezi_datumok"
+                aktualis["kezidatumok"] = sorted(datumok)
+                self._garbage_config[self._aktiv_tipus] = aktualis
+                self._aktiv_tipus = None
+                return await self.async_step_hulladek_valaszto()
+
+        return self.async_show_form(
+            step_id="hulladek_fenyofa",
+            data_schema=vol.Schema(
+                {
+                    vol.Optional("engedelyezve", default=bool(aktualis.get("engedelyezve", False))): bool,
+                    vol.Optional("datum1", default=datum1): str,
+                    vol.Optional("datum2", default=datum2): str,
+                }
+            ),
+            errors=hibak,
         )
 
     async def async_step_hulladek_alap(self, user_input=None):

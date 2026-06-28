@@ -43,6 +43,14 @@
           "hulladek_tipus": "Szerkesztendő hulladéktípus"
         }
       },
+      "hulladek_fenyofa": {
+        "title": "Fenyőfa elszállítás",
+        "data": {
+          "engedelyezve": "Engedélyezve",
+          "datum1": "Első elszállítás dátuma (ÉÉÉÉ-HH-NN)",
+          "datum2": "Második elszállítás dátuma (ÉÉÉÉ-HH-NN)"
+        }
+      },
       "hulladek_alap": {
         "title": "Hulladéktípus alapbeállításai",
         "data": {

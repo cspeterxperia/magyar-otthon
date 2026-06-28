@@ -39,13 +39,16 @@ async def async_setup_entry(
                     tipus_beallitas = {}
 
                 konfig = konfiguracio_betoltese(tipus_azonosito, tipus_beallitas)
-                entities.extend(
-                    [
-                        HulladekKovetkezoUritesSensor(entry, konfig),
-                        HulladekHatralevoNapokSensor(entry, konfig),
-                        HulladekKovetkezoNapSensor(entry, konfig),
-                    ]
-                )
+                if tipus_azonosito == "fenyofa":
+                    entities.append(FenyofaElszallitasNapjaiSensor(entry, konfig))
+                else:
+                    entities.extend(
+                        [
+                            HulladekKovetkezoUritesSensor(entry, konfig),
+                            HulladekHatralevoNapokSensor(entry, konfig),
+                            HulladekKovetkezoNapSensor(entry, konfig),
+                        ]
+                    )
 
     async_add_entities(entities)
 
@@ -80,11 +83,11 @@ class HulladekAlapSensor(SensorEntity):
 
 
 class HulladekKovetkezoUritesSensor(HulladekAlapSensor):
-    """Következő ürítés dátuma."""
+    """Következő ürítés/elszállítás dátuma."""
 
     def __init__(self, entry: ConfigEntry, konfig: HulladekKonfiguracio) -> None:
         super().__init__(entry, konfig)
-        self._attr_name = "Következő ürítés"
+        self._attr_name = "Következő elszállítás" if konfig.tipus_azonosito == "fenyofa" else "Következő ürítés"
         self._attr_unique_id = f"magyar_otthon_{entry.entry_id}_{konfig.tipus_azonosito}_kovetkezo"
 
     @property
@@ -120,11 +123,11 @@ class HulladekHatralevoNapokSensor(HulladekAlapSensor):
 
 
 class HulladekKovetkezoNapSensor(HulladekAlapSensor):
-    """Következő ürítés hét napja."""
+    """Következő ürítés/elszállítás hét napja."""
 
     def __init__(self, entry: ConfigEntry, konfig: HulladekKonfiguracio) -> None:
         super().__init__(entry, konfig)
-        self._attr_name = "Következő ürítés napja"
+        self._attr_name = "Elszállítás napja" if konfig.tipus_azonosito == "fenyofa" else "Következő ürítés napja"
         self._attr_unique_id = f"magyar_otthon_{entry.entry_id}_{konfig.tipus_azonosito}_kovetkezo_nap"
 
     @property
@@ -138,3 +141,21 @@ class HulladekKovetkezoNapSensor(HulladekAlapSensor):
         if kov is None:
             return None
         return hetnap_index_to_nev(kov.weekday())
+
+
+class FenyofaElszallitasNapjaiSensor(HulladekAlapSensor):
+    """Fenyőfa elszállítás napjai (max. 2 dátum)."""
+
+    def __init__(self, entry: ConfigEntry, konfig: HulladekKonfiguracio) -> None:
+        super().__init__(entry, konfig)
+        self._attr_name = "Elszállítás napjai"
+        self._attr_unique_id = f"magyar_otthon_{entry.entry_id}_{konfig.tipus_azonosito}_elszallitas_napjai"
+
+    @property
+    def native_value(self) -> str | None:
+        if not self._konfig.engedelyezve:
+            return None
+        datumok = self._konfig.kezidatumok[:2]
+        if not datumok:
+            return None
+        return ", ".join(d.isoformat() for d in datumok)
